@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% block head %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/doar-style.css') }}">
+{% endblock %}
+  
+{% block body %}
+  <main>
+    <div id="breadcrumbs">
+        <a href="{{ url_for('index') }}">Início</a>
+    </div>
+    <div class="title-container">
+        <h2>Doar Refeição</h2>
+    </div>
+  
+    <div class="msg_alert">
+        <div class="p_alert_container">
+            <div class="p_alert">
+                <div class="dt">Almoço:</div> A refeição doada será passada para outro aluno no dia para qual foi solicitada.
+            </div>
+        </div>
+    </div>
+  
+    <div class="navbar">
+        <a href="#">Doar Refeição</a>
+    </div>
+  
+    <div class="containerDoar">
+      <table class="tabelaDoar">
+          <thead class="headTabelaDoar">
+              <tr>
+                  <th>Id</th>
+                  <th>Tipo</th>
+                  <th>Motivo</th>
+                  <th>Para o Dia</th>
+                  <th>Situação</th>
+                  <th>Opções</th>
+              </tr>
+          </thead>
+          <tbody>
+            {% for row in resultados: %}
+              <tr>
+                  <td>{{ row[0] }}</td>
+                  <td>{{ row[2] }}</td>
+                  <td>{{ row[3] }}</td>
+                  <td>{{ row[4] }}</td>
+                  <td class="borda"><span>{{ row[5] }}</span></td>
+                 
+                  <form action="/doar" method="post">
+                      <td class="botão"><button class="btn" type="submit" id="idRef" name="idRef" value="{{ row[0] }}" onclick="confirmar()">Doar</button></td>
+                  </form>
+                  <!-- Cria um botão dinamico individual para cada tupla com o valor do id-->
+                   <!-- formulário está sendo enviando instantaneamente ao clicar em 'doar', a página recarrega e a modal some em instantes -->
+              </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+  </main>
+
+  <div class="janela-modal" id="janela-modal">
+    <div class="modal">
+        <h4>SERVIÇO SOCIAL</h4>
+        <p>Essa refeição será passada para um aluno na lista de espera, a ação não poderá ser desfeita. Tem certeza que deseja doar sua refeição?</p>
+        <span>
+            <button id="cancelar">Cancelar</button>
+            
+            <form action="/doar" method="post">
+                <button type="submit"  id="sim" value="sim" name="sim">Sim</button>
+            </form>
+            
+        </span>
+    </div>
+  </div>
+  
+
+  <script>
+    // function confirmar() {
+    //     const modal = document.getElementById('janela-modal');
+    //     modal.classList.add('abrir');
+
+    //     console.log('modal aberta!');
+
+
+    //     modal.addEventListener('click', (e) => {
+    //     if (e.target.id == 'cancelar' || e.target.id == 'janela-modal') {
+    //         modal.classList.remove('abrir')
+    //     }
+    // })
+    // }
+  </script>
+{% endblock %}

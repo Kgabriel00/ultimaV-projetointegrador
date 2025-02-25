@@ -1,0 +1,178 @@
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitar Refeição</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/solicitar-style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <main id="content">
+        <div id="breadcrumbs">
+            <a href="{{ url_for('index')}}">Início</a>
+        </div>
+        <div class="title-container">
+            <h2>Solicitar Refeição</h2>
+        </div>
+
+        <div class="msg_alert">
+            <div class="p_alert_container">
+                <div class="p_alert">
+                    <div class="dt">Almoço:</div> Deve ser solicitado entre meia-noite do Dia anterior e 3 p.m. do Dia
+                    anterior.
+                </div>
+                <div class="p_alert">
+                    <div class="dt">Jantar:</div> Deve ser solicitado entre meia-noite do Dia anterior e 8:50 a.m. do
+                    Mesmo dia.
+                </div>
+                <div class="p_alert">
+                    <div class="dtQuebrado">Solicitação de Emergência:</div> Deve ser solicitado pelo menos 2 horas
+                    antes do horário da refeição.
+                </div>
+            </div>
+        </div>
+
+        <div class="navbar">
+            <a href="#" data-target="solicitarRefeicao">Solicitar Refeição</a>
+            <a href="#" data-target="refeicoesSolicitadas">Refeições Solicitadas</a>
+            <a href="#" data-target="solicitarDoacao">Solicitar Doação</a>
+        </div>
+
+        <!-- Container de Solicitar Refeição -->
+        <div id="solicitarRefeicao" class="tab-container active">
+            <form action="/adicionar_ref" method="POST">
+                <div class="caixa-input-top">
+                    <input type="hidden" name="origem" value="form1">
+                    <label for="tipo_refeicao">Tipo de Refeição:</label>
+                    <br>
+                    <select name="tipo_refeicao" autocomplete="off" class="tipo_refeicao" id="tipo_refeicao">
+                        <option value="">Selecione o Tipo</option>
+                        <option value="jantar">Jantar</option>
+                        <option value="almoço">Almoço</option>
+                    </select>
+                </div>
+
+                <div class="caixa-input-midle">
+                    <label for="escolha_motivo_solicitacao">Motivo da Solicitação:</label>
+                    <br>
+                    <select name="escolha_motivo_solicitacao" autocomplete="off" id="escolha_motivo_solicitacao">
+                        <option value=" " selected>---------</option>
+                        <option value=" " selected>Estágio/emprego no turno inverso</option>
+                        <option value=" " selected>Aula obrigatória curricular</option>
+                        <option value=" " selected>Dependência em Disciplina</option>
+                        <option value=" " selected>Realização de trabalhos acadêmicos</option>
+                        <option value=" " selected>Participação em atividade esportiva</option>
+
+                        <!-- Opções -->
+                    </select>
+                </div>
+
+                <div class="caixa-input-bottom">
+                    <label for="id_dia_solicitacao">Solicitação para:</label>
+                    <br>
+                    <select name="dia_solicitacao" autocomplete="off" id="dia_solicitacao">
+                        <option value="amanhã">Amanhã</option>
+                        <option value="hoje">Hoje</option>
+                    </select>
+                </div>
+
+                <input type="submit" value="Enviar" class="button">
+            </form>
+        </div>
+
+        <!-- Container de Refeições Solicitadas -->
+        <div id="refeicoesSolicitadas" class="tab-container-refeicoes-solicitadas">
+            <table class="tabela-refeicoes-solicitadas">
+                <thead class="head-tabela-refeicoes-solicitadas">
+                    <tr>
+                        <th>ID da refeição</th>
+                        <th>ID do aluno</th>
+                        <th>Tipo</th>
+                        <th>Motivo</th>
+                        <th>para</th>
+                        <th>status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for refeicao in refeicoes %}
+                    <tr>
+                        <td>{{ refeicao[0] }}</td> <!--refeicao_id-->
+                        <td>{{ refeicao[1] }}</td> <!-- aluno_id -->
+                        <td>{{ refeicao[2] }}</td> <!-- tipo -->
+                        <td>{{ refeicao[3] }}</td> <!-- motivo -->
+                        <td>{{ refeicao[4] }}</td> <!-- para -->
+                        <td>{{ refeicao[5] }}</td> <!-- status -->
+                    </tr>
+                    {% endfor %}
+                    <!-- Mais linhas de dados -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Container de Solicitar Doação -->
+        <div id="solicitarDoacao" class="tab-container">
+            <form action="/adicionar_ref" method="POST">
+                <div class="caixa-input-top">
+                    <input type="hidden" name="origem" value="form2">
+                    <label for="tipo_refeicao_doacao">Tipo de Refeição para Doação:</label>
+                    <br>
+                    <select name="tipo_refeicao_emergencial" autocomplete="off" id="tipo_refeicao_emergencial">
+                        <option value="">Selecione o Tipo</option>
+                        <option value="jantar">Jantar</option>
+                        <option value="almoço">Almoço</option>
+                    </select>
+                </div>
+                <div class="caixa-input-bottom">
+                    <label for="escolha_motivo_emergencial">Motivo da Solicitação:</label>
+                    <br>
+                    <select name="escolha_motivo_emergencial" autocomplete="off" id="escolha_motivo_emergencial">
+                        <option value="3" selected>Dependência em disciplina</option>
+                        <option value="4" selected>Prova no turno inverso</option>
+                        <option value="1" selected>Participação em atividade esportiva</option>
+                        <option value="2" selected>Participação em atividade politico-estudantil</option>
+
+                        <!-- Opções -->
+                    </select>
+                </div>
+                <input type="submit" value="Enviar" class="button">
+            </form>
+        </div>
+
+    </main>
+
+    <script>
+        const links = document.querySelectorAll('.navbar a');
+        const containers = document.querySelectorAll('.tab-container, .tab-container-refeicoes-solicitadas');
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const activeContainer = document.querySelector('.tab-container.active, .tab-container-refeicoes-solicitadas.active');
+            if (activeContainer) {
+                const targetId = activeContainer.id;
+                const activeLink = document.querySelector(`.navbar a[data-target="${targetId}"]`);
+                if (activeLink) {
+                    activeLink.classList.add('active-link');
+                }
+            }
+        });
+
+        links.forEach(link => {
+            link.addEventListener('click', function (event) {
+                event.preventDefault();
+
+                const targetId = this.getAttribute('data-target');
+
+                containers.forEach(container => container.classList.remove('active'));
+
+                document.getElementById(targetId).classList.add('active');
+
+                links.forEach(link => link.classList.remove('active-link'));
+
+                this.classList.add('active-link');
+            });
+        });
+    </script>
+</body>
+
+</html>

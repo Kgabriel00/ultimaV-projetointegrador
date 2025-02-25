@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block head %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+{% endblock %}
+
+{% block body %}
+  <header class="logo">
+    <img src="https://cdn.suap.ifrn.edu.br/media/configuracao/logo-white_7cuzCVB.svg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=24I2DK2GsCsUIcxsjfkg%2F20240925%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20240925T132309Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=baec28463bf0b8d551be2062bd7b8c278d57f452116bbabc32d879485aab5630" alt="">
+  </header>
+  <div id="login">
+    <header class="title">
+      <h2>Login</h2>
+      <h3>Acesse ao Suap IFRN:</h3>
+      <form action="" method="post">
+        <label for="login-usuario">Usuário:</label>
+        <input type="text" name="login-usuario" id="login-usuario">
+        <label for="login-senha">Senha:</label>
+        <input type="password" name="login-senha" id="login-senha">
+        <button id="acessar" value="submit">Acessar</button>
+      </form>
+    </header>
+  </div>
+{% endblock %}

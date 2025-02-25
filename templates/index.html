@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+{% endblock %}
+{% block body %}
+    <div class="container">
+        <p>SERVIÇO SOCIAL</p>
+        <div class="buttonbox">
+            <button class="botao">
+                <a href="{{ url_for('solicitar_page') }}">Solicitar Refeição</a>
+            </button>
+            <button class="botao">
+                <a href="{{ url_for('doar') }}">Doar Refeição</a>
+            </button>
+        </div>
+    </div>
+{% endblock %}
+
+<!-- LEMBRA DE POR AS ASPAS QUE SACOOO -->
